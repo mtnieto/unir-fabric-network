@@ -6,7 +6,7 @@ CORE_PEER_ADDRESS=peer0.org1.unir.com:7051
 CORE_PEER_ADDRESS2=peer0.org2.unir.com:8051
 CORE_PEER_TLS_ROOTCERT_FILE2=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.unir.com/peers/peer0.org2.unir.com/tls/ca.crt
 
-CHANNEL_NAME=telefonicachannel
+CHANNEL_NAME=channel1
 CORE_PEER_TLS_ENABLED=true
 CORE_PEER_TLS_CLIENTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/unir.com/orderers/orderer0.unir.com/tls/server.crt
 CORE_PEER_TLS_CLIENTKEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/unir.com/orderers/orderer0.unir.com/tls/server.key
