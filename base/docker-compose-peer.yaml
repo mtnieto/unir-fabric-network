@@ -1,0 +1,59 @@
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+version: '2'
+
+services:
+  peer0.org1.unir.com:
+    container_name: peer0.org1.unir.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.org1.unir.com
+      - CORE_PEER_ADDRESS=peer0.org1.unir.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org1.unir.com:7051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.org1.unir.com:9051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.org1.unir.com:7052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
+      - CORE_PEER_LOCALMSPID=org1MSP
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb.peer0.org1.unir.com:5984
+
+     
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/org1.unir.com/peers/peer0.org1.unir.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/org1.unir.com/peers/peer0.org1.unir.com/tls:/etc/hyperledger/fabric/tls
+    ports:
+      - 7051:7051
+
+  
+
+  peer0.org2.unir.com:
+    container_name: peer0.org2.unir.com
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - CORE_PEER_ID=peer0.org2.unir.com
+      - CORE_PEER_ADDRESS=peer0.org2.unir.com:8051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org2.unir.com:8051
+      - CORE_PEER_LOCALMSPID=org2MSP
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb.peer0.org2.unir.com:5984
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.org2.unir.com:6051
+
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:8051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.org2.unir.com:8052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:8052
+    volumes:
+        - /var/run/:/host/var/run/
+        - ../crypto-config/peerOrganizations/org2.unir.com/peers/peer0.org2.unir.com/msp:/etc/hyperledger/fabric/msp
+        - ../crypto-config/peerOrganizations/org2.unir.com/peers/peer0.org2.unir.com/tls:/etc/hyperledger/fabric/tls
+    ports:
+      - 8051:8051
+ 
+  

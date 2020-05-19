@@ -1,0 +1,56 @@
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+version: '2'
+
+services:
+  orderer0.unir.com:
+    extends:
+      file: peer-base.yaml
+      service: orderer-base
+    environment: 
+       - ORDERER_GENERAL_LISTENPORT=7050
+
+    volumes:
+        - ../channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+        - ../crypto-config/ordererOrganizations/unir.com/orderers/orderer0.unir.com/msp:/var/hyperledger/orderer/msp
+        - ../crypto-config/ordererOrganizations/unir.com/orderers/orderer0.unir.com/tls/:/var/hyperledger/orderer/tls
+        - ../crypto-config:/var/crypto-config
+    ports:
+      - 7050:7050
+  
+  orderer1.unir.com:
+    extends:
+      file: peer-base.yaml
+      service: orderer-base
+    environment: 
+       - ORDERER_GENERAL_LISTENPORT=8050
+    volumes:
+        - ../channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+        - ../crypto-config/ordererOrganizations/unir.com/orderers/orderer1.unir.com/msp:/var/hyperledger/orderer/msp
+        - ../crypto-config/ordererOrganizations/unir.com/orderers/orderer1.unir.com/tls/:/var/hyperledger/orderer/tls
+        - ../crypto-config:/var/crypto-config
+
+    ports:
+      - 8050:8050
+  
+  orderer2.unir.com:
+    extends:
+      file: peer-base.yaml
+      service: orderer-base
+    environment: 
+       - ORDERER_GENERAL_LISTENPORT=9050
+    volumes:
+        - ../channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+        - ../crypto-config/ordererOrganizations/unir.com/orderers/orderer2.unir.com/msp:/var/hyperledger/orderer/msp
+        - ../crypto-config/ordererOrganizations/unir.com/orderers/orderer2.unir.com/tls/:/var/hyperledger/orderer/tls
+        - ../crypto-config:/var/crypto-config
+
+    ports:
+      - 9050:9050
+
+
+
+  

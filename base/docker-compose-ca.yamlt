@@ -1,0 +1,43 @@
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+version: '2'
+
+services:
+
+  ca.org1.unir.com:
+    image: hyperledger/fabric-ca
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca.org1.unir.com
+      - FABRIC_CA_SERVER_TLS_ENABLED=true
+      - FABRIC_LOGGING_SPEC=debug
+      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.org1.unir.com-cert.pem
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/44d793315558e7903df4e05cd3c67e095ed80c8083678b7d4a256e5e7dd45906_sk
+    ports:
+      - "7054:7054"
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.org1.unir.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/44d793315558e7903df4e05cd3c67e095ed80c8083678b7d4a256e5e7dd45906_sk -b adminCA:adminpw -d'
+    volumes:
+      - ../crypto-config/peerOrganizations/org1.unir.com/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca.org1.unir.com
+    extra_hosts: 
+      - openldap:10.5.0.3
+
+  ca.org2.unir.com:
+    image: hyperledger/fabric-ca
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca.org2.unir.com
+      - FABRIC_CA_SERVER_TLS_ENABLED=true
+      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.org2.unir.com-cert.pem
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/CA2_PRIVATE_KEY
+    ports:
+      - "8054:7054"
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.org2.unir.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/CA2_PRIVATE_KEY -b adminCA:adminpw -d'
+    volumes:
+      - ../crypto-config/peerOrganizations/org2.unir.com/ca/:/etc/hyperledger/fabric-ca-server-config
+      
+    container_name: ca.org2.unir.com
+  
