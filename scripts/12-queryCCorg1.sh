@@ -6,24 +6,7 @@ CORE_PEER_ADDRESS=peer0.org1.unir.com:7051
 CHANNEL_NAME=channel1
 CORE_PEER_TLS_ENABLED=true
 
-verifyResult () {
-	if [ $1 -ne 0 ] ; then
-		echo "!!!!!!!!!!!!!!! "$2" !!!!!!!!!!!!!!!!"
-                echo "================== ERROR !!! FAILED to execute End-2-End Scenario =================="
-		echo
-   		exit 1
-	fi
-}
-queryChaincode () {
-	# while 'peer chaincode' command can get the orderer endpoint from the peer (if join was successful),
-	# lets supply it directly as we know it using the "-o" option
+export CC_PACKAGE_ID="cc:d1c4fb58cfbba0947fe1ed16877fd94f96c10e9b107cfbaacf1e4f3a19d42e1b"
 
-	peer chaincode query -C $CHANNEL_NAME -n chaincode -c '{"Args":["query","a"]}' >&log.txt
-	res=$?
-	cat log.txt
-	verifyResult $res "Chaincode instantiation on PEER on channel '$CHANNEL_NAME' failed"
-	echo "===================== Chaincode Instantiation on PEER on channel '$CHANNEL_NAME' is successful ===================== "
-	echo
-}
-
-queryChaincode
+peer chaincode query -o orderer0.unir.com:7050  --tls true --cafile $ORDERER_CA -C $CHANNEL_NAME -n cc --peerAddresses $CORE_PEER_ADDRESS --tlsRootCertFiles $CORE_PEER_TLS_ROOTCERT_FILE  -c '{"Args":["get","a"]}'  >&log.txt 
+cat log.txt

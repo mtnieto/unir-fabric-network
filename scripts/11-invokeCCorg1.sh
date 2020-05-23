@@ -10,11 +10,9 @@ CHANNEL_NAME=channel1
 CORE_PEER_TLS_ENABLED=true
 CORE_PEER_TLS_CLIENTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/unir.com/orderers/orderer0.unir.com/tls/server.crt
 CORE_PEER_TLS_CLIENTKEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/unir.com/orderers/orderer0.unir.com/tls/server.key
-CC_PACKAGE_ID=chaincode_1:ceaf27f67763d8989d8d3b0498c79bb27084387df5929ef2d788bd4aa6b642d3
-	# while 'peer chaincode' command can get the orderer endpoint from the peer (if join was successful),
-	# lets supply it directly as we know it using the "-o" option
+export CC_PACKAGE_ID="cc:d1c4fb58cfbba0947fe1ed16877fd94f96c10e9b107cfbaacf1e4f3a19d42e1b"
 
 
 
-peer chaincode invoke -o orderer0.unir.com:7050  --tls true --cafile $ORDERER_CA -C $CHANNEL_NAME -n chaincode --peerAddresses $CORE_PEER_ADDRESS --tlsRootCertFiles $CORE_PEER_TLS_ROOTCERT_FILE --peerAddresses $CORE_PEER_ADDRESS2 --tlsRootCertFiles $CORE_PEER_TLS_ROOTCERT_FILE2 -c '{"Args":["set","a", "100"]}' --waitForEvent --clientauth --certfile $CORE_PEER_TLS_CLIENTCERT_FILE --keyfile $CORE_PEER_TLS_CLIENTKEY_FILE >&log.txt 
+peer chaincode invoke -o orderer0.unir.com:7050  --tls true --cafile $ORDERER_CA -C $CHANNEL_NAME -n cc --peerAddresses $CORE_PEER_ADDRESS --tlsRootCertFiles $CORE_PEER_TLS_ROOTCERT_FILE -c '{"Args":["set","a", "100"]}' --waitForEvent  >&log.txt 
 cat log.txt

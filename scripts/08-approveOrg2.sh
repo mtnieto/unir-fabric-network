@@ -8,11 +8,11 @@ CORE_PEER_TLS_ENABLED=true
 ORDERER_URL=orderer0.unir.com:7050
 CORE_PEER_TLS_CLIENTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/unir.com/orderers/orderer0.unir.com/tls/server.crt
 CORE_PEER_TLS_CLIENTKEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/unir.com/orderers/orderer0.unir.com/tls/server.key
-export CC_PACKAGE_ID="chaincode_1:1dc2e9e9d4f7f75ccd974156a0fd978ce77ca1737ac58b249d8b47e72e1267f8"
+export CC_PACKAGE_ID="cc:d1c4fb58cfbba0947fe1ed16877fd94f96c10e9b107cfbaacf1e4f3a19d42e1b"
 
-peer lifecycle chaincode approveformyorg -o $ORDERER_URL --ordererTLSHostnameOverride orderer0.unir.com  --channelID $CHANNEL_NAME --name chaincode --version 1.0 --init-required --package-id $CC_PACKAGE_ID --sequence 1 --tls true --cafile $ORDERER_CA >&log.txt
+peer lifecycle chaincode approveformyorg -o $ORDERER_URL --ordererTLSHostnameOverride orderer0.unir.com  --channelID $CHANNEL_NAME --name cc --version 1.0 --init-required --package-id $CC_PACKAGE_ID --sequence 1 --tls true --cafile $ORDERER_CA >&log.txt
 
 cat log.txt
 
-peer lifecycle chaincode checkcommitreadiness --channelID $CHANNEL_NAME --name chaincode --version 1.0 --init-required --sequence 1 --tls true --cafile $ORDERER_CA --output json
+peer lifecycle chaincode checkcommitreadiness --channelID $CHANNEL_NAME --name cc --version 1.0 --init-required --sequence 1 --tls true --cafile $ORDERER_CA --output json
 
