@@ -27,3 +27,7 @@ peer chaincode invoke  -o orderer0.unir.com:7050 --tls true -C $CHANNEL_NAME -n 
 peer chaincode query -C $CHANNEL_NAME -n marbles -c '{"Args":["readMarble","marble1"]}'
 
 peer lifecycle chaincode queryinstalled
+
+
+Ver bloques desde el contenedor del peer
+/var/hyperledger
