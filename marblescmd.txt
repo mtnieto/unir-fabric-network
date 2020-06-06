@@ -1,0 +1,29 @@
+
+
+ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/unir.com/orderers/orderer0.unir.com/msp/tlscacerts/tlsca.unir.com-cert.pem
+CORE_PEER_LOCALMSPID="org1MSP"
+CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.unir.com/peers/peer0.org1.unir.com/tls/ca.crt
+CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.unir.com/users/Admin@org1.unir.com/msp
+CORE_PEER_ADDRESS=peer0.org1.unir.com:7051
+CHANNEL_NAME=channel1
+CORE_PEER_TLS_ENABLED=true
+
+CORE_PEER_TLS_CLIENTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.unir.com/users/Admin@org1.unir.com/tls/client.crt
+CORE_PEER_TLS_CLIENTKEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.unir.com/users/Admin@org1.unir.com/tls/client.key
+ORDERER_URL=orderer0.unir.com:7050
+CC_PACKAGE_ID=marbles:193507c04728da88d0c12608f228f6b848e629b89a257e0b81f9660db03e3587
+
+
+peer lifecycle chaincode package marbles.tar.gz --path /opt/gopath/src/github.com/hyperledger/fabric/examples/chaincode/go/marbles02/node --lang node --label marbles
+peer lifecycle chaincode install marbles.tar.gz
+peer lifecycle chaincode approveformyorg -o $ORDERER_URL --ordererTLSHostnameOverride orderer0.unir.com  --channelID $CHANNEL_NAME --name marbles --version 1.0 --init-required --package-id $CC_PACKAGE_ID --sequence 1 --tls true --cafile $ORDERER_CA 
+peer lifecycle chaincode commit -o orderer0.unir.com:7050 --channelID $CHANNEL_NAME --name marbles --version 1.0 --sequence 1 --init-required --tls true --cafile $ORDERER_CA --peerAddresses peer0.org1.unir.com:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.unir.com/peers/peer0.org1.unir.com/tls/ca.crt  
+peer chaincode invoke -o orderer0.unir.com:7050 --isInit --tls true --cafile $ORDERER_CA -C $CHANNEL_NAME -n marbles --peerAddresses $CORE_PEER_ADDRESS --tlsRootCertFiles $CORE_PEER_TLS_ROOTCERT_FILE -c '{"Args":["Init"]}' --waitForEvent 
+
+
+
+
+peer chaincode invoke  -o orderer0.unir.com:7050 --tls true -C $CHANNEL_NAME -n marbles -c '{"Args":["initMarble","marble1","blue","35","tom"]}' --peerAddresses $CORE_PEER_ADDRESS --tlsRootCertFiles $CORE_PEER_TLS_ROOTCERT_FILE --waitForEvent  --cafile $ORDERER_CA
+peer chaincode query -C $CHANNEL_NAME -n marbles -c '{"Args":["readMarble","marble1"]}'
+
+peer lifecycle chaincode queryinstalled

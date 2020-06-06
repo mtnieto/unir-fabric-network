@@ -23,3 +23,6 @@ peer lifecycle chaincode install chaincode.tar.gz >&log.txt
 cat log.txt
 
 
+
+#cd /opt/gopath/src/github.com/hyperledger/fabric/examples/chaincode/go/marbles02/node
+
