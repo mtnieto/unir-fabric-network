@@ -211,12 +211,21 @@ Application: &ApplicationDefaults
         Admins:
             Type: ImplicitMeta
             Rule: "MAJORITY Admins"
-        LifecycleEndorsement:
+        LifecycleEndorsement: # Esto influye en el approve y commit
             Type: Signature
             Rule: "OR('org2MSP.peer', 'org1MSP.peer')"
         Endorsement:
             Type: Signature
             Rule: "OR('org2MSP.peer', 'org1MSP.peer')"
+
+
+            #Ejemplo de endorsement del licecycle
+        #      LifecycleEndorsement:
+        #     Type: ImplicitMeta
+        #     Rule: "MAJORITY Endorsement"
+        # Endorsement:
+        #     Type: ImplicitMeta
+            # Rule: "MAJORITY Endorsement"
 
     Capabilities:
         <<: *ApplicationCapabilities

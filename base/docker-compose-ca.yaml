@@ -1,0 +1,43 @@
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+version: '2'
+
+services:
+
+  ca.org1.unir.com:
+    image: hyperledger/fabric-ca
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca.org1.unir.com
+      - FABRIC_CA_SERVER_TLS_ENABLED=true
+      - FABRIC_LOGGING_SPEC=debug
+      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.org1.unir.com-cert.pem
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/603d6bd6c37f27010ca9f0221d0b6b480342b0596ac1885d83fee14fac2c1f3d_sk
+    ports:
+      - "7054:7054"
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.org1.unir.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/603d6bd6c37f27010ca9f0221d0b6b480342b0596ac1885d83fee14fac2c1f3d_sk -b adminCA:adminpw -d'
+    volumes:
+      - ../crypto-config/peerOrganizations/org1.unir.com/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca.org1.unir.com
+    extra_hosts: 
+      - openldap:10.5.0.3
+
+  ca.org2.unir.com:
+    image: hyperledger/fabric-ca
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca.org2.unir.com
+      - FABRIC_CA_SERVER_TLS_ENABLED=true
+      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.org2.unir.com-cert.pem
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/6bab981acfa036d7e7e9237c57a5c0865b67bd730c0bae480c9306061abe3b36_sk
+    ports:
+      - "8054:7054"
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.org2.unir.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/6bab981acfa036d7e7e9237c57a5c0865b67bd730c0bae480c9306061abe3b36_sk -b adminCA:adminpw -d'
+    volumes:
+      - ../crypto-config/peerOrganizations/org2.unir.com/ca/:/etc/hyperledger/fabric-ca-server-config
+      
+    container_name: ca.org2.unir.com
+  
