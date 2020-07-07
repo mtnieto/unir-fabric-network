@@ -140,9 +140,7 @@ services:
         - ./scripts/:/opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/
         - ./channel-artifacts:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
     depends_on:
-      - orderer0.unir.com
       - peer0.org1.unir.com
-      - peer0.org2.unir.com
       
     networks:
         hyperledgerfabrictestnet_default:

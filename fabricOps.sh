@@ -181,9 +181,9 @@ function dockerCli(){
 verifyArg
 case $COMMAND in
     "config")
-        generateCerts
-        generateChannelArtifacts
-        replacePrivateKey
+        # generateCerts
+        # generateChannelArtifacts
+        # replacePrivateKey
         ;;
     "start")
         generateCerts

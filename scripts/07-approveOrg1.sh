@@ -7,10 +7,10 @@ export CHANNEL_NAME=channel1
 export CORE_PEER_TLS_ENABLED=true
 export CORE_PEER_TLS_CLIENTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/unir.com/orderers/orderer0.unir.com/tls/server.crt
 export CORE_PEER_TLS_CLIENTKEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/unir.com/orderers/orderer0.unir.com/tls/server.key
-export CC_PACKAGE_ID="cc:d1c4fb58cfbba0947fe1ed16877fd94f96c10e9b107cfbaacf1e4f3a19d42e1b"
+export CC_PACKAGE_ID="cc:f1a27531c4eaa2febbc7e3fb0df981134b1fd68b437ed6276a2e515386758d4a"
 export ORDERER_URL=orderer0.unir.com:7050
 
-peer lifecycle chaincode approveformyorg -o $ORDERER_URL --ordererTLSHostnameOverride orderer0.unir.com  --channelID $CHANNEL_NAME --name cc --version 1.0 --init-required --package-id $CC_PACKAGE_ID --sequence 1 --tls true --cafile $ORDERER_CA >&log.txt
+peer lifecycle chaincode approveformyorg -o $ORDERER_URL --ordererTLSHostnameOverride orderer0.unir.com  --channelID $CHANNEL_NAME --name cc2 --version 1.0 --init-required --package-id $CC_PACKAGE_ID --sequence 1 --tls true --cafile $ORDERER_CA >&log.txt
 
 cat log.txt
 

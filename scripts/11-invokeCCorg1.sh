@@ -14,5 +14,5 @@ export CC_PACKAGE_ID="cc:d1c4fb58cfbba0947fe1ed16877fd94f96c10e9b107cfbaacf1e4f3
 
 
 
-peer chaincode invoke -o orderer0.unir.com:7050  --tls true --cafile $ORDERER_CA -C $CHANNEL_NAME -n cc --peerAddresses $CORE_PEER_ADDRESS --tlsRootCertFiles $CORE_PEER_TLS_ROOTCERT_FILE -c '{"Args":["set","a", "100"]}' --waitForEvent  >&log.txt 
+peer chaincode invoke -o orderer0.unir.com:7050  --tls true --cafile $ORDERER_CA -C $CHANNEL_NAME -n cc --peerAddresses $CORE_PEER_ADDRESS --tlsRootCertFiles $CORE_PEER_TLS_ROOTCERT_FILE -c '{"Args":["set","hola", "50"]}' --waitForEvent  >&log.txt 
 cat log.txt

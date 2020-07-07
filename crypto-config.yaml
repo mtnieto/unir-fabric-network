@@ -27,7 +27,7 @@ PeerOrgs:
       Province: Madrid
       Locality: Madrid
     Template:
-      Count: 1
+      Count: 2
     Users:
       Count: 1
  
@@ -42,4 +42,5 @@ PeerOrgs:
       Count: 1
     Users:
       Count: 1
+  
     

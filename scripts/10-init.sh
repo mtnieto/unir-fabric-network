@@ -12,5 +12,5 @@ CORE_PEER_TLS_CLIENTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer
 CORE_PEER_TLS_CLIENTKEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/unir.com/orderers/orderer0.unir.com/tls/server.key
 export CC_PACKAGE_ID="cc:d1c4fb58cfbba0947fe1ed16877fd94f96c10e9b107cfbaacf1e4f3a19d42e1b"
 
-peer chaincode invoke -o orderer0.unir.com:7050 --isInit --tls true --cafile $ORDERER_CA -C $CHANNEL_NAME -n cc --peerAddresses $CORE_PEER_ADDRESS --tlsRootCertFiles $CORE_PEER_TLS_ROOTCERT_FILE -c '{"Args":["Init","a"]}' --waitForEvent >&log.txt 
+peer chaincode invoke -o orderer0.unir.com:7050 --isInit --tls true --cafile $ORDERER_CA -C $CHANNEL_NAME -n cc2 --peerAddresses $CORE_PEER_ADDRESS --tlsRootCertFiles $CORE_PEER_TLS_ROOTCERT_FILE -c '{"function":"InitLedger","Args":[]}' --waitForEvent >&log.txt 
 cat log.txt
